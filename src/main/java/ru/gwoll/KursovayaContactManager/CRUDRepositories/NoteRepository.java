@@ -1,14 +1,15 @@
+/*
 package ru.gwoll.KursovayaContactManager.CRUDRepositories;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-import org.springframework.transaction.annotation.Transactional;
-import ru.gwoll.KursovayaContactManager.Entities.Note;
 
-@RepositoryRestResource
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+@Repository
 public interface NoteRepository extends CrudRepository<Note, Long> {
     @Modifying
     @Transactional
@@ -18,3 +19,4 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
     @Query("SELECT n FROM Note n WHERE n.text = :text")
     Note findByText(@Param("text") String text);
 }
+*/

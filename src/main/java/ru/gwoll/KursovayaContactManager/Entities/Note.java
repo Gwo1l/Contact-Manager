@@ -1,3 +1,4 @@
+/*
 package ru.gwoll.KursovayaContactManager.Entities;
 
 import jakarta.persistence.*;
@@ -13,8 +14,6 @@ public class Note {
 
     private String text;
     private LocalDateTime creationDate;
-    @OneToOne(mappedBy = "note", cascade = CascadeType.ALL)
-    private Contact contact;
 
     public Note(LocalDateTime creationDate, String text) {
         this.creationDate = creationDate;
@@ -53,3 +52,4 @@ public class Note {
 
 
 }
+*/
