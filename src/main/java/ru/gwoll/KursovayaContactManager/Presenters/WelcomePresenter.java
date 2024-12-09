@@ -31,29 +31,36 @@ public class WelcomePresenter extends VerticalLayout {
     @Autowired
     public WelcomePresenter(UserService userService) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        OAuth2AuthenticatedPrincipal principal = (OAuth2AuthenticatedPrincipal) authentication.getPrincipal();
-
-        String givenName = principal.getAttribute("given_name");
-        String email = principal.getAttribute("email");
-        String picture = principal.getAttribute("picture");
-
-        H2 header = new H2("Hello " + givenName + " (" + email + ")");
-        Button usersButton = new Button("Войти в систему", VaadinIcon.ENTER.create());
-        usersButton.addClickListener(e -> PagesNavigator.navigateTo("/u"));
-        Image image = new Image(picture, "User Image");
-
         try {
-            User user = userService.findByName(givenName);
+            OAuth2AuthenticatedPrincipal principal = (OAuth2AuthenticatedPrincipal) authentication.getPrincipal();
+            String givenName = principal.getAttribute("given_name");
+            String email = principal.getAttribute("email");
+            String picture = principal.getAttribute("picture");
+
+            H2 header = new H2("Hello " + givenName + " (" + email + ")");
+            Button usersButton = new Button("Войти в систему", VaadinIcon.ENTER.create());
+            usersButton.addClickListener(e -> PagesNavigator.navigateTo("/u"));
+            Image image = new Image(picture, "User Image");
+
+            try {
+                User user = userService.findByName(givenName);
+            }
+            catch (Exception e) {
+                User user = new User(givenName);
+                userService.saveUser(user);
+            }
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            setAlignItems(Alignment.CENTER);
+            add(header, image, usersButton);
         }
-        catch (Exception e) {
-            User user = new User(givenName);
-            userService.saveUser(user);
+        catch (ClassCastException e) {
+            PagesNavigator.navigateTo("/u");
         }
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        setAlignItems(Alignment.CENTER);
-        add(header, image, usersButton);
+
     }
 
 }

@@ -30,16 +30,18 @@ public class CurrentUserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null) {
-            OAuth2AuthenticatedPrincipal principal = (OAuth2AuthenticatedPrincipal) authentication.getPrincipal();
-            if (principal != null) {
-                String name = principal.getAttribute("given_name");
-                User u = userRepository.findByName(name).getFirst();
+            try {
+                OAuth2AuthenticatedPrincipal principal = (OAuth2AuthenticatedPrincipal) authentication.getPrincipal();
+                if (principal != null) {
+                    String name = principal.getAttribute("given_name");
+                    User u = userRepository.findByName(name).getFirst();
+                    return u;
+                }
+            }
+            catch (ClassCastException e) {
+                User u = userRepository.findByName(getCurrentUsername()).getFirst();
                 return u;
             }
-
-            User u = userRepository.findByName(getCurrentUsername()).getFirst();
-            return u;
-
         }
         return null;
     }
