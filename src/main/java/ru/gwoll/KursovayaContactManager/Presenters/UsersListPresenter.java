@@ -24,7 +24,7 @@ import java.util.Collection;
  * Презентер для страницы списка пользователей.
  * Этот класс отображает таблицу пользователей с возможностью фильтрации и перехода к странице подписок.
  */
-@Route(value = "", layout = MainLayout.class)
+@Route(value = "u", layout = MainLayout.class)
 @PageTitle("Пользователи")
 @PermitAll
 public class UsersListPresenter extends VerticalLayout {

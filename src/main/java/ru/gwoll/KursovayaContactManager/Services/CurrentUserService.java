@@ -5,6 +5,7 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.stereotype.Service;
 import ru.gwoll.KursovayaContactManager.CRUDRepositories.UserRepository;
 import ru.gwoll.KursovayaContactManager.Entities.User;
@@ -19,7 +20,8 @@ public class CurrentUserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null) {
-            return authentication.getName();
+            String n = authentication.getName();
+            return n;
         }
         return null;
     }
@@ -28,7 +30,16 @@ public class CurrentUserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null) {
-            return userRepository.findByName(getCurrentUsername()).getFirst();
+            OAuth2AuthenticatedPrincipal principal = (OAuth2AuthenticatedPrincipal) authentication.getPrincipal();
+            if (principal != null) {
+                String name = principal.getAttribute("given_name");
+                User u = userRepository.findByName(name).getFirst();
+                return u;
+            }
+
+            User u = userRepository.findByName(getCurrentUsername()).getFirst();
+            return u;
+
         }
         return null;
     }

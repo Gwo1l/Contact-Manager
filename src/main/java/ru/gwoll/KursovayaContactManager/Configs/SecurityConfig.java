@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import ru.gwoll.KursovayaContactManager.Presenters.LoginPresenter;
 
 
@@ -15,23 +16,28 @@ import ru.gwoll.KursovayaContactManager.Presenters.LoginPresenter;
 @EnableMethodSecurity(jsr250Enabled = true)
 @Configuration
 public class SecurityConfig extends VaadinWebSecurity {
-    /**
-     * Конфигурация безопасности для веб-приложения, основанного на Vaadin.
-     * Использует Spring Security для настройки безопасности и аутентификации.
-     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         setLoginView(http, LoginPresenter.class);
+
+        /*http.oauth2Login(oauth2Login ->
+                oauth2Login
+                        .loginPage("/login")
+                        .successHandler(successHandler())
+        );*/
+        http.oauth2Login(oauth2Login ->
+                oauth2Login
+                        .loginPage("/login").permitAll());
     }
 
-    /**
-     * Bean для кодирования паролей с использованием алгоритма BCrypt.
-     * Этот метод создаёт экземпляр BCryptPasswordEncoder, который будет использоваться
-     * для хэширования и проверки паролей пользователей.
-     *
-     * @return экземпляр PasswordEncoder, настроенный на использование BCrypt
-     */
+    /*@Bean
+    public SavedRequestAwareAuthenticationSuccessHandler successHandler() {
+        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+        successHandler.setDefaultTargetUrl("/welcome");
+        return successHandler;
+    }*/
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

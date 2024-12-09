@@ -23,6 +23,7 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 public class LoginPresenter extends VerticalLayout implements BeforeEnterObserver {
     private LoginForm loginForm;
     private Button regButton;
+    private Button googleButton;
 
     /**
      * Конструктор, который инициализирует форму для входа и кнопку для регистрации.
@@ -31,6 +32,8 @@ public class LoginPresenter extends VerticalLayout implements BeforeEnterObserve
     public LoginPresenter() {
         loginForm = new LoginForm();
         regButton = new Button("Зарегистрироваться", VaadinIcon.ENTER.create());
+        googleButton = new Button("Войти с помощью Google", VaadinIcon.GOOGLE_PLUS.create());
+
         setSizeFull();
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
@@ -38,10 +41,11 @@ public class LoginPresenter extends VerticalLayout implements BeforeEnterObserve
         loginForm.setAction("login");
 
         regButton.addClickListener(e -> UI.getCurrent().navigate("registration"));
+        googleButton.addClickListener(e -> UI.getCurrent().getPage().executeJs("window.location.href='/oauth2/authorization/google'"));
 
         add(new H1("Войти в Social Library"),
                 new Div("Если вы не зарегистрированы - нажмите Зарегистриоваться"),
-                loginForm, regButton);
+                loginForm, regButton, googleButton);
     }
 
     /**

@@ -22,6 +22,11 @@ public class User {
 
     public User() {};
 
+    public User(String name) {
+        this.name = name;
+        this.role = Role.USER;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
