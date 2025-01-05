@@ -2,17 +2,11 @@ package ru.gwoll.KursovayaContactManager.Services;
 
 import com.vaadin.flow.component.grid.Grid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.gwoll.KursovayaContactManager.CRUDRepositories.UserRepository;
 import ru.gwoll.KursovayaContactManager.Entities.User;
 
-import java.util.Collection;
 
-/**
- * Сервис для фильтрации пользователей по имени и отображения их в сетке.
- * Предоставляет функционал для поиска пользователей по имени и отображения результатов в интерфейсе.
- */
 @Service
 public class UsersFilterService {
 
@@ -31,7 +25,7 @@ public class UsersFilterService {
     }
 
 
-    public long showUser(String name) {
+    public long showUsers(String name) {
         long startTime = System.nanoTime();
         if (name.isEmpty()) {
             grid.setItems(userService.getAllUsers());

@@ -12,8 +12,19 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@RedisHash("User")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+    private String phoneNumber;
+    private String country;
+    private String gender;
+    private String address;
+    private String password;
+    private Role role;
+
     public User(String name, String password, Role role) {
         this.name = name;
         this.password = password;
@@ -26,17 +37,6 @@ public class User {
         this.name = name;
         this.role = Role.USER;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String name;
-    private String phoneNumber;
-    private String country;
-    private String gender;
-    private String address;
-    private String password;
-    private Role role;
 
     public User(String name, String password, String phoneNumber, String country, String gender, String address) {
 

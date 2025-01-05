@@ -19,7 +19,6 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    @Cacheable(value = "users")
     public Collection<User> getAllUsers() {
         return (Collection<User>) userRepository.findAll();
     }

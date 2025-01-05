@@ -12,10 +12,7 @@ import ru.gwoll.KursovayaContactManager.Entities.User;
 import ru.gwoll.KursovayaContactManager.Services.SubscriptionsService;
 import ru.gwoll.KursovayaContactManager.SubPresenters.SubscriptionUserEditorPresenter;
 
-/**
- * Презентер для страницы управления подписками пользователя.
- * Этот класс отображает список подписок текущего пользователя и позволяет взаимодействовать с подписанными пользователями.
- */
+
 @Route(value = "subscriptions", layout = MainLayout.class)
 @PageTitle("Подписки")
 @PermitAll
@@ -40,6 +37,4 @@ public class SubscriptionsPresenter extends VerticalLayout {
         subscriptionsGrid.setItems(subscriptionsService.getSubscribedUsers());
 
     }
-
-
 }

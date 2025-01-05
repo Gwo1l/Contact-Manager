@@ -2,12 +2,6 @@ package ru.gwoll.KursovayaContactManager.Entities;
 
 import jakarta.persistence.*;
 
-/**
- * Сущность {@link Subscription} представляет подписку одного пользователя на другого.
- *
- * Этот класс используется для хранения информации о подписках пользователей друг на друга.
- * Пользователь может подписаться на другого пользователя, и каждая подписка имеет уникальный идентификатор.
- */
 @Entity
 @Table(name = "subscriptions")
 public class Subscription {
@@ -23,16 +17,12 @@ public class Subscription {
     @JoinColumn(name = "subscription_user_id")
     private User subscribedUser;
 
-    /**
-     * Конструктор для создания подписки между пользователем и подписанным пользователем.
-     *
-     * @param user Пользователь, который подписывается.
-     * @param subscribedUser Пользователь, на которого подписываются.
-     */
+
     public Subscription(User user, User subscribedUser) {
         this.user = user;
         this.subscribedUser = subscribedUser;
     }
+
 
     /**
      * Конструктор по умолчанию для создания пустой подписки.

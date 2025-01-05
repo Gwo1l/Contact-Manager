@@ -20,10 +20,7 @@ import ru.gwoll.KursovayaContactManager.SubPresenters.UserEditorPresenter;
 
 import java.util.Collection;
 
-/**
- * Презентер для страницы списка пользователей.
- * Этот класс отображает таблицу пользователей с возможностью фильтрации и перехода к странице подписок.
- */
+
 @Route(value = "u", layout = MainLayout.class)
 @PageTitle("Пользователи")
 @PermitAll
@@ -52,8 +49,8 @@ public class UsersListPresenter extends VerticalLayout {
 
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> {
-            long time = usersFilterService.showUser(e.getValue());
-            performanceField.setValue(time + " нс");
+            long time = usersFilterService.showUsers(e.getValue());
+            performanceField.setValue(time + " мс");
         });
 
 

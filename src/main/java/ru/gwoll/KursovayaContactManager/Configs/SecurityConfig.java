@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import ru.gwoll.KursovayaContactManager.Presenters.LoginPresenter;
 
@@ -21,22 +22,12 @@ public class SecurityConfig extends VaadinWebSecurity {
         super.configure(http);
         setLoginView(http, LoginPresenter.class);
 
-        /*http.oauth2Login(oauth2Login ->
-                oauth2Login
-                        .loginPage("/login")
-                        .successHandler(successHandler())
-        );*/
         http.oauth2Login(oauth2Login ->
                 oauth2Login
                         .loginPage("/login").permitAll());
     }
 
-    /*@Bean
-    public SavedRequestAwareAuthenticationSuccessHandler successHandler() {
-        SavedRequestAwareAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
-        successHandler.setDefaultTargetUrl("/welcome");
-        return successHandler;
-    }*/
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

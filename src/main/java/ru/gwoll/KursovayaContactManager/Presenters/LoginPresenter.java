@@ -25,10 +25,6 @@ public class LoginPresenter extends VerticalLayout implements BeforeEnterObserve
     private Button regButton;
     private Button googleButton;
 
-    /**
-     * Конструктор, который инициализирует форму для входа и кнопку для регистрации.
-     * Настроены стили и обработчики событий.
-     */
     public LoginPresenter() {
         loginForm = new LoginForm();
         regButton = new Button("Зарегистрироваться", VaadinIcon.ENTER.create());
@@ -48,12 +44,6 @@ public class LoginPresenter extends VerticalLayout implements BeforeEnterObserve
                 loginForm, regButton, googleButton);
     }
 
-    /**
-     * Метод, который вызывается перед загрузкой страницы.
-     * Проверяет, если в URL есть параметр "error", то устанавливает ошибку в форме входа.
-     *
-     * @param event Событие перед входом на страницу
-     */
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         if (event.getLocation().getQueryParameters().getParameters().containsKey("error")) {

@@ -48,11 +48,7 @@ public class UserEditorService {
         return usersGrid;
     }
 
-    /**
-     * Получает текущего пользователя. Если текущий пользователь не был установлен ранее, он загружается через сервис.
-     *
-     * @return текущий пользователь
-     */
+
     private User getUser() {
         if (me == null) {
             me = currentUserService.getCurrentUser();
@@ -60,13 +56,6 @@ public class UserEditorService {
         return me;
     }
 
-    /**
-     * Подписывает текущего пользователя на указанного пользователя.
-     * Если подписка уже существует, возвращается {@code false}.
-     *
-     * @param user пользователь, на которого нужно подписаться
-     * @return {@code true}, если подписка была успешно добавлена, иначе {@code false}
-     */
     public boolean subscribe(User user) {
         me = getUser();
         Subscription findingSubscription = subscriptionsRepository.findSubscriptionByUserAndSubscribedUser(me, user);
